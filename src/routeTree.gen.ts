@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as RockPaperScissorsImport } from './routes/rock-paper-scissors'
+import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
@@ -21,10 +22,23 @@ const RockPaperScissorsRoute = RockPaperScissorsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const IndexRoute = IndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
     '/rock-paper-scissors': {
       id: '/rock-paper-scissors'
       path: '/rock-paper-scissors'
@@ -38,32 +52,37 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/rock-paper-scissors': typeof RockPaperScissorsRoute
 }
 
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/rock-paper-scissors': typeof RockPaperScissorsRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/': typeof IndexRoute
   '/rock-paper-scissors': typeof RockPaperScissorsRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/rock-paper-scissors'
+  fullPaths: '/' | '/rock-paper-scissors'
   fileRoutesByTo: FileRoutesByTo
-  to: '/rock-paper-scissors'
-  id: '__root__' | '/rock-paper-scissors'
+  to: '/' | '/rock-paper-scissors'
+  id: '__root__' | '/' | '/rock-paper-scissors'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   RockPaperScissorsRoute: typeof RockPaperScissorsRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   RockPaperScissorsRoute: RockPaperScissorsRoute,
 }
 
@@ -77,8 +96,12 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/",
         "/rock-paper-scissors"
       ]
+    },
+    "/": {
+      "filePath": "index.tsx"
     },
     "/rock-paper-scissors": {
       "filePath": "rock-paper-scissors.tsx"
