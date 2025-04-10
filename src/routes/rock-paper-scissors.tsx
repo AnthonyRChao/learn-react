@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Scissors, BrickWall, Scroll, Skull, PartyPopper, Handshake } from 'lucide-react'
 import { useState } from 'react'
+import Confetti from 'react-confetti'
 export const Route = createFileRoute('/rock-paper-scissors')({
   component: RouteComponent,
 })
@@ -41,6 +42,7 @@ function RouteComponent() {
         ) {
             message = (
                 <>
+                    <Confetti numberOfPieces={400} />
                     <PartyPopper className="size-12" />
                     <p>You Win!</p>
                 </>
