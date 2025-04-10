@@ -8,7 +8,7 @@ function RouteComponent() {
   return (
     <div>
       <Link
-        className="text-blue-300 hover:text-blue-600 bg-white p-4 rounded-md"
+        className="hover:bg-gray-800 border border-gray-500 bg-black p-4 rounded-md"
         to="/rock-paper-scissors"
       >
         Rock Paper Scissors

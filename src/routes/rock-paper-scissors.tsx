@@ -5,15 +5,15 @@ export const Route = createFileRoute('/rock-paper-scissors')({
   component: RouteComponent,
 })
 
-type Weapon = 'rock' | 'paper' | 'scissors'
-const weapons = ["rock", "paper", "scissors"] as const
+type Weapon = 'Rock' | 'Paper' | 'Scissors'
+const weapons = ["Rock", "Paper", "Scissors"] as const
 
 
 function RouteComponent() {
 
     const [userChoice, setUserChoice] = useState<Weapon | null>(null)
     const [computerChoice, setComputerChoice] = useState<Weapon | null>(null)
-    const [gameState, setGameState] = useState<"playing" | "done">("done")
+    const [gameState, setGameState] = useState<"playing" | "done">("playing")
 
     function handleUserChoice(weapon: Weapon) {
         setUserChoice(weapon)
@@ -30,26 +30,26 @@ function RouteComponent() {
             message = (
                 <>
                     <Handshake className="size-12" />
-                    <p>It's a tie!</p>
+                    <p>It's a Tie!</p>
                 </>
             )
         }
         else if (
-            (userChoice === "rock" && computerChoice === "scissors") || 
-            (userChoice === "paper" && computerChoice === "rock") || 
-            (userChoice === "scissors" && computerChoice === "paper")
+            (userChoice === "Rock" && computerChoice === "Scissors") || 
+            (userChoice === "Paper" && computerChoice === "Rock") || 
+            (userChoice === "Scissors" && computerChoice === "Paper")
         ) {
             message = (
                 <>
                     <PartyPopper className="size-12" />
-                    <p>You win!</p>
+                    <p>You Win!</p>
                 </>
             )
         } else {
             message = (
                 <>
                     <Skull className="size-12" /> 
-                    <p>You lose!</p>
+                    <p>You Lose!</p>
                 </>
             )
         }
@@ -70,26 +70,36 @@ function RouteComponent() {
         <div className="flex flex-col items-center justify-center gap-8 h-screen">    
             {gameState === "playing" ? ( 
                 <>
-                    <h1>Pick your weapon</h1>
                     <div className="flex items-center justify-center gap-8">
-                        <button onClick={() => handleUserChoice('rock')} className="flex flex-col gap-4 justify-center items-center p-8 border border-gray-500 rounded bg-gray-900 h-80 w-80">
+                        <button 
+                            onClick={() => handleUserChoice('Rock')} 
+                            className="flex flex-col gap-4 justify-center items-center p-8 border border-gray-500 rounded bg-black h-80 w-80 hover:bg-gray-800"
+                        >
                             <BrickWall className="size-12" />
-                            ROCK</button>
-                        <button onClick={() => handleUserChoice('paper')} className="flex flex-col gap-4 justify-center items-center p-8 border border-gray-500 rounded bg-gray-900 h-80 w-80">
+                            Rock
+                        </button>
+                        <button 
+                            onClick={() => handleUserChoice('Paper')} 
+                            className="flex flex-col gap-4 justify-center items-center p-8 border border-gray-500 rounded bg-black h-80 w-80 hover:bg-gray-800"
+                        >
                             <Scroll className="size-12" />
-                            PAPER</button>
-                        <button onClick={() => handleUserChoice('scissors')} className="flex flex-col gap-4 justify-center items-center p-8 border border-gray-500 rounded bg-gray-900 h-80 w-80">
+                            Paper
+                        </button>
+                        <button 
+                            onClick={() => handleUserChoice('Scissors')} 
+                            className="flex flex-col gap-4 justify-center items-center p-8 border border-gray-500 rounded bg-black h-80 w-80 hover:bg-gray-800"
+                        >
                             <Scissors className="size-12" />
-                            SCISSORS
-                            </button>
+                            Scissors
+                        </button>
                     </div>
                 </> 
             ) : ( 
                 <>
                     <div className="flex flex-col items-center justify-center gap-8">
-                        <p>You chose {userChoice}, Computer chose {computerChoice}</p> 
-                        <p>{getResult()}</p>
-                        <button className="bg-blue-500 text-white p-2 rounded" onClick={resetGame}>Play again</button>
+                        <p>You chose <span className="font-bold">{userChoice}</span>, Computer chose <span className="font-bold">{computerChoice}</span></p> 
+                        <p className="font-bold">{getResult()}</p>
+                        <button className="bg-blue-500 text-white p-2 rounded" onClick={resetGame}>Play Again</button>
                     </div>
                 </>
             )}
