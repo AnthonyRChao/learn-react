@@ -11,3 +11,7 @@
 ## stopwatch
 
 ![stopwatch](public/stopwatch.png)
+
+## dice
+
+![dice](public/dice.png)

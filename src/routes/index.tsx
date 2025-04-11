@@ -19,6 +19,12 @@ function RouteComponent() {
       >
         Stopwatch
       </Link>
+      <Link
+        className="hover:bg-gray-800 border border-gray-500 bg-black p-4 rounded-md w-48 text-center"
+        to="/dice"
+      >
+        Dice
+      </Link>
     </div>
   )
 }
